@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations; //Necessary for Data Annotations
 
 namespace ClassLibrary
 {
@@ -7,12 +8,18 @@ namespace ClassLibrary
               
     public class Patient
     {
-        public string FullName { get; set; } 
+
+        [Required]
+        public string FullName { get; set; }
+        [Required]
         public int DPI { get; set; } 
-        public int Age { get; set; } 
-        public int PhoneNumber { get; set; } 
-        public DateTime LastConsultation { get; set; } 
-        public DateTime NextConsultation { get; set; } 
+        [Required]
+        public int Age { get; set; }
+        [Required]
+        public int PhoneNumber { get; set; }
+        [Required]
+        public DateTime LastConsultation { get; set; }
+        public DateTime NextConsultation { get; set; }
         public string TreatmentDescription { get; set; }
     }
 }
