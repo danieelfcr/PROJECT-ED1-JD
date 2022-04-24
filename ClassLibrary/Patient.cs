@@ -8,17 +8,18 @@ namespace ClassLibrary
               
     public class Patient
     {
+
         [Required]
-        public string FullName { get; set; } //required
+        public string FullName { get; set; }
         [Required]
-        public int DPI { get; set; } //required
+        public int DPI { get; set; } 
         [Required]
-        public int Age { get; set; } //required
+        public int Age { get; set; }
         [Required]
-        public int PhoneNumber { get; set; } //required
+        public int PhoneNumber { get; set; }
         [Required]
-        public DateTime LastConsultation { get; set; } //required
-        public DateTime NextConsultation { get; set; } //optional
-        public string TreatmentDescription { get; set; } //optional
+        public DateTime LastConsultation { get; set; }
+        public DateTime NextConsultation { get; set; }
+        public string TreatmentDescription { get; set; }
     }
 }
