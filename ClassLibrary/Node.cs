@@ -17,7 +17,7 @@ namespace ClassLibrary
         {
             this.Record = Record;
             BalanceFactor = 0;
-            Height = 0;
+            Height = 1;
         }
     }
 }

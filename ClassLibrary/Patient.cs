@@ -12,11 +12,11 @@ namespace ClassLibrary
         [Required]
         public string FullName { get; set; }
         [Required]
-        public int DPI { get; set; } 
+        public long DPI { get; set; } 
         [Required]
         public int Age { get; set; }
         [Required]
-        public int PhoneNumber { get; set; }
+        public long PhoneNumber { get; set; }
         [Required]
         public DateTime LastConsultation { get; set; }
         public DateTime NextConsultation { get; set; }
