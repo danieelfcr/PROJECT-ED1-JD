@@ -36,6 +36,7 @@ namespace PROJECT_ED1.Controllers
         {
             try
             {
+
                 Patient patient = new Patient
                 {
                     FullName = collection["FullName"],
@@ -51,6 +52,8 @@ namespace PROJECT_ED1.Controllers
                 Node<Patient> NewNodeDPI = new Node<Patient>(patient);
                 Node<Patient> NewNodeName = new Node<Patient>(patient);
 
+                if(!Data.Instance.DPITree.Contains(Data.Instance.DPITree.Root, NewNodeDPI) && !Data.Instance.NameTree.Contains(Data.Instance.NameTree.Root, NewNodeName))
+                { 
                 Data.Instance.DPITree.Root = Data.Instance.DPITree.Insert(Data.Instance.DPITree.Root, NewNodeDPI);   //Call to insert to DPI TREE function
                 Data.Instance.NameTree.Root = Data.Instance.NameTree.Insert(Data.Instance.NameTree.Root, NewNodeName);   //Call to insert to NAME TREE function
 
@@ -60,8 +63,14 @@ namespace PROJECT_ED1.Controllers
                 //Fill list
                 Data.Instance.DPITree.InOrder(Data.Instance.DPITree.Root);
 
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    ViewBag.CreatePatient = "The patient that you are trying to create has either a DPI or a name identical to one that is already in the database. Please, try again or search for the patient.";
+                }
 
-                return RedirectToAction(nameof(Index));
+                return View();
             }
             catch
             {

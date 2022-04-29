@@ -49,7 +49,10 @@ namespace ClassLibrary
         /// </summary>
         public Node<T> Search(Node<T> root, Node<T> Data);
 
-        
+        /// <summary>
+        /// Verifies that the new node is not the same as one that is already in the tree
+        /// </summary>
+        public bool Contains(Node<T> root, Node<T> newNode);
 
 
     }

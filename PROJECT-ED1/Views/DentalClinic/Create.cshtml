@@ -6,6 +6,17 @@
 
 <h1>Create</h1>
 
+@{
+    if (ViewBag.CreatePatient != null)
+    {
+        <div class="alert alert-danger alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+           @ViewBag.CreatePatient
+        </div>
+    }
+
+}
+
 <h4>Patient</h4>
 <hr />
 <div class="row">
