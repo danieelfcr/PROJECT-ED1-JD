@@ -62,13 +62,12 @@
                 @Html.DisplayFor(modelItem => item.PhoneNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LastConsultation.Date)
+                @Html.DisplayFor(modelItem => item.LastConsultation)
             </td>
             <td>
                 @{
-                    if (item.NextConsultation.Year.ToString() != "0001")
-                        Html.DisplayFor(modelItem => item.NextConsultation);
-
+                    if (item.NextConsultation.Year.ToString() != "1")
+                        @Html.DisplayFor(modelItem => item.NextConsultation);
                 }
                 
             </td>
