@@ -52,7 +52,7 @@ namespace PROJECT_ED1.Controllers
                 Node<Patient> NewNodeName = new Node<Patient>(patient);
 
                 Data.Instance.DPITree.Root = Data.Instance.DPITree.Insert(Data.Instance.DPITree.Root, NewNodeDPI);   //Call to insert to DPI TREE function
-                Data.Instance.NameTree.Root = Data.Instance.NameTree.Insert(Data.Instance.DPITree.Root, NewNodeName);   //Call to insert to NAME TREE function
+                Data.Instance.NameTree.Root = Data.Instance.NameTree.Insert(Data.Instance.NameTree.Root, NewNodeName);   //Call to insert to NAME TREE function
 
                 //Clear list
                 Data.Instance.DPITree.NodeList.Clear();
