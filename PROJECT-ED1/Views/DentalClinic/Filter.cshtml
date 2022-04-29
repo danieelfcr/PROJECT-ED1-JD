@@ -1,22 +1,13 @@
 ﻿@model IEnumerable<ClassLibrary.Patient>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Filter";
 }
 
-<h1>Index</h1>
-
-<form asp-controller="DentalClinic" asp-action="Filter" method="post" enctype="multipart/form-data">
-    <select name="FilterSelection">
-        <option value="DPI" selected>DPI</option>
-        <option value="Serial Number">Full name</option>
-    </select>
-    <input type="text" name="Search" />
-    <input class="btn-info text-white" type="submit" value="Search" />
-</form>
+<h1>Filter</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Index">Back to list</a>
 </p>
 <table class="table">
     <thead>
@@ -70,9 +61,9 @@
                 @Html.DisplayFor(modelItem => item.TreatmentDescription)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {id=item.DPI}) |
-                @Html.ActionLink("Details", "Details", new {id=item.DPI }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.DPI })
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>
 }

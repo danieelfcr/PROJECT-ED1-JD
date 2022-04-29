@@ -12,7 +12,7 @@ namespace ClassLibrary
         [Required]
         public string FullName { get; set; }
         [Required]
-        public long DPI { get; set; } 
+        public string DPI { get; set; } 
         [Required]
         public int Age { get; set; }
         [Required]
