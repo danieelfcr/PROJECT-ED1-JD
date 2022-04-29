@@ -54,9 +54,9 @@ namespace ClassLibrary
             }
             if (root.BalanceFactor < -1)
             {
-                if (Comparer(root.Right.Record, newNode.Record) == 1) //Single right rotation 
+                if (Comparer(root.Right.Record, newNode.Record) == 1) //Single left rotation 
                     return LeftRotation(root);
-                else if (Comparer(root.Right.Record, newNode.Record) == 1)  //Double right rotation
+                else if (Comparer(root.Right.Record, newNode.Record) == 1)  //Double left rotation
                 {
                     root.Right = RightRotation(root.Right);
                     return LeftRotation(root);
@@ -117,6 +117,28 @@ namespace ClassLibrary
             InOrder(root.Left);
             NodeList.Add(root.Record);
             InOrder(root.Right);
+        }
+
+        public Node<T> Search(Node<T> root, Node<T> Data)
+        {
+            if (root != null)
+            {
+                if (Comparer(root.Record, Data.Record) == 0) //Evaluate if they are the same
+                {
+                    return root;
+                }
+                else if ((Comparer(root.Record, Data.Record) == 1) && (Root.Left != null))   //Evaluate if it is smaller
+                {
+                    //If it is, go left
+                    return Search(root.Left, Data);
+                }
+                else if ((Comparer(root.Record, Data.Record) == -1) && (Root.Right != null))
+                {
+                    //If it isn't, go right
+                    return Search(root.Right, Data);
+                }
+            }
+            return Data;
         }
     }
 }

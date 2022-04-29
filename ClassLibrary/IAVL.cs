@@ -44,6 +44,12 @@ namespace ClassLibrary
         /// </summary>
         public Node<T> LeftRotation(Node<T> node);
 
+        /// <summary>
+        /// Gets the node that matches with the data given by the user
+        /// </summary>
+        public Node<T> Search(Node<T> root, Node<T> Data);
+
+        
 
 
     }

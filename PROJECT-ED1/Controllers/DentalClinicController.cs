@@ -39,7 +39,7 @@ namespace PROJECT_ED1.Controllers
                 Patient patient = new Patient
                 {
                     FullName = collection["FullName"],
-                    DPI = Convert.ToInt64(collection["DPI"]),
+                    DPI = collection["DPI"],
                     Age = Convert.ToInt32(collection["Age"]),
                     PhoneNumber = Convert.ToInt64(collection["PhoneNumber"]),
                     LastConsultation = Convert.ToDateTime(collection["LastConsultation"]),
@@ -109,6 +109,50 @@ namespace PROJECT_ED1.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult Filter(string FilterSelection, string Search)
+        {
+            //Create a list
+            List<Patient> filteredList = new List<Patient>();
+
+            if (Search != null)   //Verify that the user wrote something
+            {
+               
+                //Create a new patient with the needed attributes
+                Patient patient = new Patient
+                {
+                    DPI = Search,
+                    FullName = Search,
+                };
+                Node<Patient> Node = new Node<Patient>(patient);
+
+                //Create a new node that will collect the patient found
+                Node<Patient> foundPatient;
+
+                //Verify what type of selection the user is asking for
+                if (FilterSelection == "DPI")
+                    foundPatient = Data.Instance.DPITree.Search(Data.Instance.DPITree.Root, Node);
+
+                else
+                    foundPatient = Data.Instance.NameTree.Search(Data.Instance.DPITree.Root, Node);
+
+                //If the patient wasn't found, 'foundPatient' will be equals to 'Node'
+                if (foundPatient == Node)
+                {
+                    filteredList.Clear();
+                    return View();
+                }
+                else
+                {
+                    filteredList.Clear();
+                    filteredList.Add(foundPatient.Record);  //Add found patient to list
+                    return View(filteredList);  
+                }
+                
+            }
+            filteredList.Clear();
+            return View(filteredList);
         }
     }
 }
