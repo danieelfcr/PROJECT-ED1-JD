@@ -58,22 +58,23 @@
                 @Html.DisplayFor(modelItem => item.Age)
             </td>
             <td>
+                
                 @Html.DisplayFor(modelItem => item.PhoneNumber)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.LastConsultation)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.NextConsultation)
+                @{
+                    if (item.NextConsultation.Year.ToString() != "1")
+                        @Html.DisplayFor(modelItem => item.NextConsultation);
+                }
+                
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TreatmentDescription)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new {id=item.DPI}) |
-                @Html.ActionLink("Details", "Details", new {id=item.DPI }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.DPI })
-            </td>
+            
         </tr>
 }
     </tbody>
