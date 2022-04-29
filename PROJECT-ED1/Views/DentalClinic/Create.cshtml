@@ -7,6 +7,16 @@
 <h1>Create</h1>
 
 @{
+    if (ViewBag.CreatePatient != null)
+    {
+        <div class="alert alert-danger alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+           @ViewBag.CreatePatient
+        </div>
+    }
+}
+
+@{
     string day = DateTime.Now.Day.ToString();
     string month = DateTime.Now.Month.ToString();
     if (DateTime.Now.Day < 10)
@@ -14,11 +24,8 @@
     if (DateTime.Now.Month < 10)
         month = month.Insert(0, "0");
 
-    
     string Today = $"{DateTime.Now.Year.ToString()}-{month}-{day}";
-
 }
-
 
 
 <h4>Patient</h4>

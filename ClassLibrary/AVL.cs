@@ -135,5 +135,27 @@ namespace ClassLibrary
             }
             return Data;
         }
+
+        public bool Contains(Node<T> root, Node<T> newNode)
+        {
+            if (root != null)
+            {
+                if (Comparer(root.Record, newNode.Record) == 0) //Evaluate if they are the same
+                {
+                    return true;
+                }
+                else if ((Comparer(root.Record, newNode.Record) == 1) && (Root.Left != null))   //Evaluate if it is smaller
+                {
+                    //If it is, go left
+                     return Contains(root.Left, newNode);
+                }
+                else if ((Comparer(root.Record, newNode.Record) == -1) && (Root.Right != null))
+                {
+                    //If it isn't, go right
+                     return Contains(root.Right, newNode);
+                }
+            }
+            return false;
+        }
     }
 }
