@@ -55,7 +55,10 @@
                 @Html.DisplayFor(modelItem => item.LastConsultation)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.NextConsultation)
+                @{
+                    if (item.NextConsultation.Year.ToString() != "1")
+                        @Html.DisplayFor(modelItem => item.NextConsultation);
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TreatmentDescription)

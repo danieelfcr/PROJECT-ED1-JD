@@ -30,7 +30,7 @@ namespace PROJECT_ED1.Helpers
 
         public static Func<Patient, Patient, int> NameComparer = (patient, newPatient) =>
         {
-            return patient.FullName.CompareTo(newPatient.FullName);
+            return patient.FullName.ToLower().CompareTo(newPatient.FullName.ToLower());
         };  //Compares two patient nodes by their Name
 
         public AVL<Patient> DPITree = new AVL<Patient>(DPIcomparer);

@@ -14,8 +14,19 @@
            @ViewBag.CreatePatient
         </div>
     }
-
 }
+
+@{
+    string day = DateTime.Now.Day.ToString();
+    string month = DateTime.Now.Month.ToString();
+    if (DateTime.Now.Day < 10)
+        day = day.Insert(0, "0");
+    if (DateTime.Now.Month < 10)
+        month = month.Insert(0, "0");
+
+    string Today = $"{DateTime.Now.Year.ToString()}-{month}-{day}";
+}
+
 
 <h4>Patient</h4>
 <hr />
@@ -30,29 +41,52 @@
             </div>
             <div class="form-group">
                 <label asp-for="DPI" class="control-label"></label>
-                <input asp-for="DPI" class="form-control" />
+                <input asp-for="DPI" minlength="13" maxlength="13" class="form-control" />
                 <span asp-validation-for="DPI" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Age" class="control-label"></label>
-                <input asp-for="Age" class="form-control" />
+                <input asp-for="Age" min="5" class="form-control" />
                 <span asp-validation-for="Age" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
+                <input asp-for="PhoneNumber" minlength="8" maxlength="8" class="form-control" />
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="LastConsultation" class="control-label"></label>
-                <input asp-for="LastConsultation" class="form-control" />
+                <input asp-for="LastConsultation" type="date" value="@Today" min="2012-01-01" class="form-control" />
                 <span asp-validation-for="LastConsultation" class="text-danger"></span>
             </div>
+
+
             <div class="form-group">
-                <label asp-for="NextConsultation" class="control-label"></label>
-                <input asp-for="NextConsultation" class="form-control" />
-                <span asp-validation-for="NextConsultation" class="text-danger"></span>
+
+                <div class="form-check">
+
+                    <input class="form-check-input" type="checkbox" onchange="ChangeStatus()"  checked id="NextConsult">
+                    <label asp-for="NextConsultation" class="control-label"></label>
+
+                    <input asp-for="NextConsultation" id="next" type="date" value="@Today" min="@Today" class="form-control" />
+
+                </div>
+                
+                <script>
+                    function ChangeStatus() {
+                        if (document.getElementById('NextConsult').checked) {
+
+                            document.getElementById('next').value = '@Today';
+                            document.getElementById('next').disabled = false;
+                        }
+                        else {
+                            document.getElementById('next').disabled = true;
+                            document.getElementById('next').value = null;
+                        }
+                    }
+                </script>
             </div>
+
             <div class="form-group">
                 <label asp-for="TreatmentDescription" class="control-label"></label>
                 <input asp-for="TreatmentDescription" class="form-control" />
