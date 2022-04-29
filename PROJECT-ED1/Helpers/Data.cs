@@ -34,7 +34,7 @@ namespace PROJECT_ED1.Helpers
         };  //Compares two patient nodes by their Name
 
         public AVL<Patient> DPITree = new AVL<Patient>(DPIcomparer);
-        public AVL<Patient> NameTree = new AVL<Patient>(DPIcomparer);
+        public AVL<Patient> NameTree = new AVL<Patient>(NameComparer);
 
     }
 }

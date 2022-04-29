@@ -36,13 +36,11 @@ namespace ClassLibrary
             else return root;
 
 
-            //update of balance factor
+            //balance factor analysis
 
-            root.Height = 1 + Max(GetHeight(root.Left), GetHeight(root.Right)); //Find height
+            int BalanceFactor = CalculateBalanceFactor(root);
 
-            root.BalanceFactor = CalculateBalanceFactor(root); //Find balance factor
-
-            if (root.BalanceFactor > 1)
+            if (BalanceFactor > 1)
             {
                 if (Comparer(root.Left.Record, newNode.Record) == 1) //Single right rotation
                     return RightRotation(root);
@@ -52,9 +50,10 @@ namespace ClassLibrary
                     return RightRotation(root);
                 }
             }
-            if (root.BalanceFactor < -1)
+            if (BalanceFactor < -1)
             {
-                if (Comparer(root.Right.Record, newNode.Record) == 1) //Single left rotation 
+
+                if (Comparer(root.Right.Record, newNode.Record) == -1) //Single right rotation 
                     return LeftRotation(root);
                 else if (Comparer(root.Right.Record, newNode.Record) == 1)  //Double left rotation
                 {
@@ -68,20 +67,20 @@ namespace ClassLibrary
         public int GetHeight(Node<T> node)
         {
             if (node == null)
-                return 0;
-            return node.Height;
+                return -1;
+            return Max(GetHeight(node.Left), GetHeight(node.Right));
 
         }
 
         public int Max(int leftHeight, int rightHeight)
         {
-            return (leftHeight > rightHeight) ? leftHeight : rightHeight;
+            return (leftHeight > rightHeight) ? leftHeight + 1 : rightHeight + 1;
         }
 
         public int CalculateBalanceFactor(Node<T> node)
         {
             if (node == null)
-                return 0;
+                return -1;
             return GetHeight(node.Left) - GetHeight(node.Right);
         }
 
@@ -92,8 +91,6 @@ namespace ClassLibrary
             Node<T> rightAux = newRoot.Right;
             newRoot.Right = node;
             node.Left = rightAux;
-            node.Height = Max(GetHeight(node.Left), GetHeight(node.Right)) + 1;
-            newRoot.Height = Max(GetHeight(newRoot.Left), GetHeight(newRoot.Right)) + 1;
 
             return newRoot;
         }
@@ -104,8 +101,6 @@ namespace ClassLibrary
             Node<T> leftAux = newRoot.Left;
             newRoot.Left = node;
             node.Right = leftAux;
-            node.Height = Max(GetHeight(node.Left), GetHeight(node.Right)) + 1;
-            newRoot.Height = Max(GetHeight(newRoot.Left), GetHeight(newRoot.Right)) + 1;
 
             return newRoot;
         }
