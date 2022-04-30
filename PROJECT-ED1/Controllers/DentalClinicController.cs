@@ -14,8 +14,38 @@ namespace PROJECT_ED1.Controllers
         // GET: DentalClinicController
         public ActionResult Index(List<Patient> PatientList)
         {
-            return View(Data.Instance.DPITree.NodeList); //Just to verify implementation
+            return View(Data.Instance.DPITree.NodeList); 
         }
+
+      public IActionResult NextConsultationFilter()
+        {
+           try
+            {
+                //Create a list that contains all AVL Tree nodes
+                List<Patient> GeneralList = new List<Patient>();
+                Data.Instance.DPITree.NodeList.Clear();
+                Data.Instance.DPITree.InOrder(Data.Instance.DPITree.Root);
+                GeneralList = Data.Instance.DPITree.NodeList;
+
+               
+
+                //Create a new filtered list with the nodes that doesn't have a next consultation
+                List<Patient> FilteredList = new List<Patient>();
+                foreach (var item in GeneralList)
+                {
+                    if (item.NextConsultation.Year.ToString() == "1")
+                    {
+                        FilteredList.Add(item);
+                    }
+                }
+
+                return View(FilteredList);
+            }
+            catch
+            {
+              return View();
+            }
+       }
 
         // GET: DentalClinicController/Details/5
         public ActionResult Details(int id)
@@ -23,7 +53,7 @@ namespace PROJECT_ED1.Controllers
             return View();
         }
 
-        // GET: DentalClinicController/Create
+        // GET: DentalClinicController/Create 
         public ActionResult Create()
         {
             return View(new Patient());
@@ -132,7 +162,7 @@ namespace PROJECT_ED1.Controllers
                 Patient patient = new Patient
                 {
                     DPI = Search,
-                    FullName = Search,
+                    FullName = Search
                 };
                 Node<Patient> Node = new Node<Patient>(patient);
 
