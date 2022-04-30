@@ -54,14 +54,14 @@ namespace PROJECT_ED1.Controllers
 
                 if(!Data.Instance.DPITree.Contains(Data.Instance.DPITree.Root, NewNodeDPI) && !Data.Instance.NameTree.Contains(Data.Instance.NameTree.Root, NewNodeName))
                 { 
-                Data.Instance.DPITree.Root = Data.Instance.DPITree.Insert(Data.Instance.DPITree.Root, NewNodeDPI);   //Call to insert to DPI TREE function
-                Data.Instance.NameTree.Root = Data.Instance.NameTree.Insert(Data.Instance.NameTree.Root, NewNodeName);   //Call to insert to NAME TREE function
+                    Data.Instance.DPITree.Root = Data.Instance.DPITree.Insert(Data.Instance.DPITree.Root, NewNodeDPI);   //Call to insert to DPI TREE function
+                    Data.Instance.NameTree.Root = Data.Instance.NameTree.Insert(Data.Instance.NameTree.Root, NewNodeName);   //Call to insert to NAME TREE function
 
-                //Clear list
-                Data.Instance.DPITree.NodeList.Clear();
+                    //Clear list
+                    Data.Instance.DPITree.NodeList.Clear();
 
-                //Fill list
-                Data.Instance.DPITree.InOrder(Data.Instance.DPITree.Root);
+                    //Fill list
+                    Data.Instance.DPITree.InOrder(Data.Instance.DPITree.Root);
 
                     return RedirectToAction(nameof(Index));
                 }

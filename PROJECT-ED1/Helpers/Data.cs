@@ -33,8 +33,15 @@ namespace PROJECT_ED1.Helpers
             return patient.FullName.ToLower().CompareTo(newPatient.FullName.ToLower());
         };  //Compares two patient nodes by their Name
 
+
+        public static Func<ConsultationDay, ConsultationDay, int> ConsultationDayComparer = (day, newDay) =>
+        {
+            return day.Date.CompareTo(newDay.Date);
+        }; //Compares two ConsultationDay nodes by their date
+
         public AVL<Patient> DPITree = new AVL<Patient>(DPIcomparer);
         public AVL<Patient> NameTree = new AVL<Patient>(NameComparer);
+        public AVL<ConsultationDay> ConsultationDayTree = new AVL<ConsultationDay>(ConsultationDayComparer);
 
     }
 }
