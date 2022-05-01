@@ -10,6 +10,7 @@ namespace ClassLibrary
         public int count;
         public List<T> NodeList;
         Func<T, T, int> Comparer;
+        
 
         public AVL(Func<T, T, int> Comparer)
         {
@@ -19,6 +20,8 @@ namespace ClassLibrary
             this.Comparer = Comparer;
 
         }
+
+       
 
         public Node<T> Insert(Node<T> root, Node<T> newNode)
         {
@@ -157,5 +160,8 @@ namespace ClassLibrary
             }
             return false;
         }
+
+
+        
     }
 }

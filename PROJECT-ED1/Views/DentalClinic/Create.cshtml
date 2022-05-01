@@ -16,6 +16,18 @@
     }
 }
 
+
+@{ 
+    if (ViewBag.AddPatientToConsultationDay != null)
+    {
+        <div class="alert alert-danger alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+            @ViewBag.AddPatientToConsultationDay
+        </div>
+    }
+}
+
+
 @{
     string day = DateTime.Now.Day.ToString();
     string month = DateTime.Now.Month.ToString();

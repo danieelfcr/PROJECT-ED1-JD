@@ -56,7 +56,7 @@
             </td>
             <td>
                 @{
-                    if (item.NextConsultation.Year.ToString() != "1")
+                    if (item.NextConsultation != default(DateTime))
                         @Html.DisplayFor(modelItem => item.NextConsultation);
                 }
             </td>
