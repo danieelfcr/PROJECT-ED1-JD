@@ -6,8 +6,14 @@ namespace ClassLibrary
 {
     public class ConsultationDay
     {
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
         public List<Patient> PatientList { get; set; }
+
+        public ConsultationDay (DateTime date)
+        {
+            PatientList = new List<Patient>();
+            Date = date;
+        }
         
     }
 }

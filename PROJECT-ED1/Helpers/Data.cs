@@ -36,8 +36,12 @@ namespace PROJECT_ED1.Helpers
 
         public static Func<ConsultationDay, ConsultationDay, int> ConsultationDayComparer = (day, newDay) =>
         {
-            return day.Date.CompareTo(newDay.Date);
+            //return day.Date.CompareTo(newDay.Date);
+            return DateTime.Compare(day.Date, newDay.Date);
         }; //Compares two ConsultationDay nodes by their date
+
+       
+
 
         public AVL<Patient> DPITree = new AVL<Patient>(DPIcomparer);
         public AVL<Patient> NameTree = new AVL<Patient>(NameComparer);
