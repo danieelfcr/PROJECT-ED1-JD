@@ -1,17 +1,13 @@
 ﻿@model IEnumerable<ClassLibrary.Patient>
 
 @{
-    ViewData["Title"] = "NextConsultationFilter";
+    ViewData["Title"] = "OrthodonticFilter";
 }
 
-<h1>Patients without a next consultation date</h1>
+<h1>Follow up on orthodontic treatments</h1>
 
 <p>
-    <a asp-action="CleaningFilter">Patients who should have a dental cleaning</a><br />
-    <a asp-action="CariesFilter">Patients who need to follow up on their caries treatment</a><br />
-    <a asp-action="OrthodonticFilter">Patients who need to follow up on their orthodontic treatment</a><br />
-    <a asp-action="SpecificFilter">Patients who have a specific treatment</a><br />
-
+    <a asp-action="NextConsultationFilter">Back</a>
 </p>
 <table class="table">
     <thead>
@@ -73,7 +69,3 @@
 }
     </tbody>
 </table>
-<br />
-<p>
-    <a asp-action="Index">Back to list</a>
-</p>

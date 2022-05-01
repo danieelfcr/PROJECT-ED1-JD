@@ -47,6 +47,27 @@ namespace PROJECT_ED1.Controllers
             }
        }
 
+        public IActionResult CleaningFilter()
+        {
+            return View(Data.Instance.FList);
+        }
+
+        public IActionResult CariesFilter()
+        {
+            return View(Data.Instance.FList);
+        }
+
+        public IActionResult OrthodonticFilter()
+        {
+            return View(Data.Instance.FList);
+        }
+
+        public IActionResult SpecificFilter()
+        {
+            return View(Data.Instance.FList);
+        }
+
+
         // GET: DentalClinicController/Details/5
         public ActionResult Details(int id)
         {

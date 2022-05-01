@@ -40,8 +40,9 @@ namespace PROJECT_ED1.Helpers
             return DateTime.Compare(day.Date, newDay.Date);
         }; //Compares two ConsultationDay nodes by their date
 
-       
-
+        
+        //Create list for filter actions
+        public List<Patient> FList = new List<Patient>();
 
         public AVL<Patient> DPITree = new AVL<Patient>(DPIcomparer);
         public AVL<Patient> NameTree = new AVL<Patient>(NameComparer);
