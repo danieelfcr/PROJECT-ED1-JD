@@ -40,13 +40,27 @@ namespace PROJECT_ED1.Helpers
             return DateTime.Compare(day.Date, newDay.Date);
         }; //Compares two ConsultationDay nodes by their date
 
-        
-        //Create list for filter actions
-        public List<Patient> FList = new List<Patient>();
+           
+      /*  public static Func<Patient, int> LastConsultationComparer = (patient) =>
+        {
+            return Math.Abs((patient.LastConsultation.Month) + 12 * (DateTime.Today.Month - patient.LastConsultation.Month));
+            
+        }; //Compares date with actual date and returns the number of months*/
 
-        public AVL<Patient> DPITree = new AVL<Patient>(DPIcomparer);
-        public AVL<Patient> NameTree = new AVL<Patient>(NameComparer);
+        public static Action<Patient, Patient> EditData = (originalPatient, newPatient) =>
+        {
+            originalPatient.NextConsultation = newPatient.NextConsultation;
+            originalPatient.TreatmentDescription = newPatient.TreatmentDescription;
+        };
+
+
+
+        public AVL<Patient> DPITree = new AVL<Patient>(DPIcomparer, EditData);
+        public AVL<Patient> NameTree = new AVL<Patient>(NameComparer, EditData);
         public AVL<ConsultationDay> ConsultationDayTree = new AVL<ConsultationDay>(ConsultationDayComparer);
 
+        //New lists to show filtered by nextconsultation
+        public List<Patient> FilteredList = new List<Patient>();
+        public List<Patient> FilteredList2 = new List<Patient>();
     }
 }

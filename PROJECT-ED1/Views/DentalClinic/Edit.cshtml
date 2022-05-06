@@ -1,23 +1,13 @@
 ﻿@model ClassLibrary.Patient
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
-<h1>Create</h1>
+<h1>Edit</h1>
+
 
 @{
-    if (ViewBag.CreatePatient != null)
-    {
-        <div class="alert alert-danger alert-dismissible">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-           @ViewBag.CreatePatient
-        </div>
-    }
-}
-
-
-@{ 
     if (ViewBag.AddPatientToConsultationDay != null)
     {
         <div class="alert alert-danger alert-dismissible">
@@ -26,7 +16,6 @@
         </div>
     }
 }
-
 
 @{
     string day = DateTime.Now.Day.ToString();
@@ -40,73 +29,61 @@
 }
 
 
+
 <h4>Patient</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="FullName" class="control-label"></label>
-                <input asp-for="FullName" class="form-control" />
+                <input asp-for="FullName" readonly class="form-control" />
                 <span asp-validation-for="FullName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DPI" class="control-label"></label>
-                <input asp-for="DPI" type="number" minlength="13" maxlength="13" class="form-control" />
+                <input asp-for="DPI" readonly class="form-control" />
                 <span asp-validation-for="DPI" class="text-danger"></span>
-
             </div>
             <div class="form-group">
                 <label asp-for="Age" class="control-label"></label>
-                <input asp-for="Age"  min="5" max="120" class="form-control" />
+                <input asp-for="Age" readonly class="form-control" />
                 <span asp-validation-for="Age" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" minlength="8" maxlength="8" class="form-control" />   
+                <input asp-for="PhoneNumber" readonly class="form-control" />
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="LastConsultation" class="control-label"></label>
-                <input asp-for="LastConsultation" type="date" value="@Today" min="2012-01-01" class="form-control" />
+                <input asp-for="LastConsultation" readonly class="form-control" />
                 <span asp-validation-for="LastConsultation" class="text-danger"></span>
             </div>
-
-
             <div class="form-group">
-
-                <div class="form-check">
-
-                    <input class="form-check-input" type="checkbox" onchange="ChangeStatus()"  checked id="NextConsult">
-                    <label asp-for="NextConsultation" class="control-label"></label>
-
-                    <input asp-for="NextConsultation" id="next" type="date" value="@Today" min="@Today" class="form-control" />
-
-                </div>
-                
-                <script>
-                    function ChangeStatus() {
-                        if (document.getElementById('NextConsult').checked) {
-
-                            document.getElementById('next').value = '@Today';
-                            document.getElementById('next').disabled = false;
-                        }
-                        else {
-                            document.getElementById('next').disabled = true;
-                            document.getElementById('next').value = null;
-                        }
+                <label asp-for="NextConsultation" class="control-label"></label>
+                @{
+                    DateTime output;
+                    if (Model != null && Model.NextConsultation == default)
+                    {
+                        output = Convert.ToDateTime(Today);
                     }
-                </script>
+                    else if (Model != null)
+                    {
+                        output = Model.NextConsultation;
+                    }
+                }
+                <input asp-for="NextConsultation" min="@Today" type="date" class="form-control" />
+                <span asp-validation-for="NextConsultation" class="text-danger"></span>
             </div>
-
             <div class="form-group">
                 <label asp-for="TreatmentDescription" class="control-label"></label>
                 <input asp-for="TreatmentDescription" class="form-control" />
                 <span asp-validation-for="TreatmentDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
