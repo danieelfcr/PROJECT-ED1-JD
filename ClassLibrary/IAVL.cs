@@ -54,6 +54,5 @@ namespace ClassLibrary
         /// </summary>
         public bool Contains(Node<T> root, Node<T> newNode);
 
-
     }
 }

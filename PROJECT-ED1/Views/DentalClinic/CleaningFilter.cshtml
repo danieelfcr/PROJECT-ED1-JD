@@ -1,0 +1,71 @@
+﻿@model IEnumerable<ClassLibrary.Patient>
+
+@{
+    ViewData["Title"] = "CleaningFilter";
+}
+
+<h1>Follow up on dental cleaning</h1>
+
+<p>
+    <a asp-action="NextConsultationFilter">Back</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DPI)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastConsultation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NextConsultation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TreatmentDescription)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DPI)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastConsultation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NextConsultation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TreatmentDescription)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

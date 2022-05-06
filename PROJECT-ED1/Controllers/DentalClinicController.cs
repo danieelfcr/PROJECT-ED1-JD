@@ -14,7 +14,115 @@ namespace PROJECT_ED1.Controllers
         // GET: DentalClinicController
         public ActionResult Index(List<Patient> PatientList)
         {
-            return View(Data.Instance.DPITree.NodeList); //Just to verify implementation
+            return View(Data.Instance.DPITree.NodeList); 
+        }
+
+      public IActionResult NextConsultationFilter()
+        {
+           try
+            {
+                Data.Instance.DPITree.NodeList.Clear();
+                Data.Instance.FilteredList.Clear();
+                Data.Instance.FilteredList2.Clear();
+
+                //InOrder of AVL DPI Tree to fill node list
+                Data.Instance.DPITree.InOrder(Data.Instance.DPITree.Root);
+
+
+                foreach (var item in Data.Instance.DPITree.NodeList)
+                {
+                    if (item.NextConsultation == default)
+                    {
+                        Data.Instance.FilteredList.Add(item);
+                    }
+                }
+
+                return View(Data.Instance.FilteredList);
+            }
+            catch
+            {
+              return View();
+            }
+       }
+
+        public IActionResult CleaningFilter()
+        {
+            InsertNodeToFList(6, "", 1);
+            return View(Data.Instance.FilteredList2);
+        }
+
+        public IActionResult CariesFilter()
+        {
+            InsertNodeToFList(4, "Caries", 2);
+            return View(Data.Instance.FilteredList2);
+        }
+
+        public IActionResult OrthodonticFilter()
+        {
+            InsertNodeToFList(2, "Ortodoncia", 3);
+            return View(Data.Instance.FilteredList2);
+        }
+
+        public IActionResult SpecificFilter()
+        {
+            InsertNodeToFList(6, "Specific", 4);
+            return View(Data.Instance.FilteredList2);
+        }
+
+        public static int LastConsultationDif(Patient patient)
+        {
+            return Math.Abs((DateTime.Today.Month - patient.LastConsultation.Month) + 12 * (DateTime.Today.Year - patient.LastConsultation.Year));
+        }   //Returns the difference in months
+
+        public void InsertNodeToFList(int MinMonths, String Treatment, int CaseNumber)
+        {
+            foreach (var item in Data.Instance.FilteredList)
+            {
+                if (item.TreatmentDescription != "")
+                {
+                    if ((LastConsultationDif(item) >= MinMonths) && (!item.TreatmentDescription.ToUpper().Contains("CARIES") && !item.TreatmentDescription.ToUpper().Contains("ORTODONCIA") && !item.TreatmentDescription.ToUpper().Contains("CARIES") && PatientNumber(item, MinMonths, Treatment) == CaseNumber))
+                    {
+                        Data.Instance.FilteredList2.Add(item);
+                    }
+                    else if ((LastConsultationDif(item) >= MinMonths) && (item.TreatmentDescription.ToUpper().Contains(Treatment.ToUpper())))
+                    {
+                        if (PatientNumber(item, MinMonths, Treatment) == CaseNumber)
+                        {
+                            Data.Instance.FilteredList2.Add(item);
+                        }     
+                    }
+                }
+                else
+                {
+                    int meses = LastConsultationDif(item);
+                    if ((LastConsultationDif(item) >= MinMonths))
+                    {
+                        if (PatientNumber(item, MinMonths, Treatment) == CaseNumber)
+                        {
+                            Data.Instance.FilteredList2.Add(item);
+                        }
+                    }
+                }
+            }
+        }   //Inserts a node in the second filtered list by month
+
+        public int PatientNumber(Patient patient, int MinMonths, string Treatment)
+        {
+            if ((LastConsultationDif(patient) >= MinMonths) && !patient.TreatmentDescription.ToUpper().Contains("CARIES") && !patient.TreatmentDescription.ToUpper().Contains("ORTODONCIA") && patient.TreatmentDescription != "")
+                return 4;
+            else if ((LastConsultationDif(patient) >= MinMonths) && (patient.TreatmentDescription.ToUpper().Contains(Treatment.ToUpper())))
+            {
+                if (patient.TreatmentDescription.ToUpper().Contains("ORTODONCIA"))
+                {
+                    return 3;
+                }
+                else if (patient.TreatmentDescription.ToUpper().Contains("CARIES"))
+                {
+                    return 2;
+                }
+            }
+            return 1;
+
         }
 
         // GET: DentalClinicController/Details/5
@@ -23,7 +131,7 @@ namespace PROJECT_ED1.Controllers
             return View();
         }
 
-        // GET: DentalClinicController/Create
+        // GET: DentalClinicController/Create 
         public ActionResult Create()
         {
             return View(new Patient());
@@ -265,7 +373,7 @@ namespace PROJECT_ED1.Controllers
                 Patient patient = new Patient
                 {
                     DPI = Search,
-                    FullName = Search,
+                    FullName = Search
                 };
                 Node<Patient> Node = new Node<Patient>(patient);
 
