@@ -6,6 +6,9 @@
 
 <h1>Index</h1>
 
+
+
+
 <form asp-controller="DentalClinic" asp-action="Filter" method="post" enctype="multipart/form-data">
     <select name="FilterSelection">
         <option value="DPI" selected>DPI</option>
@@ -46,36 +49,37 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DPI)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Age)
-            </td>
-            <td>
-                
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastConsultation)
-            </td>
-            <td>
-                @{
-                    if (item.NextConsultation != default(DateTime))
-                        @Html.DisplayFor(modelItem => item.NextConsultation);
-                }
-                
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TreatmentDescription)
-            </td>
-            
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DPI)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td>
+
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastConsultation)
+                </td>
+                <td>
+                    @{
+                        if (item.NextConsultation != default(DateTime))
+                            @Html.DisplayFor(modelItem => item.NextConsultation);
+                    }
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TreatmentDescription)
+                </td>
+
+            </tr>
+        }
     </tbody>
 </table>

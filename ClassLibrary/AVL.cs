@@ -10,7 +10,8 @@ namespace ClassLibrary
         public int count;
         public List<T> NodeList;
         Func<T, T, int> Comparer;
-        
+        Action<T, T> EditInformation;
+
 
         public AVL(Func<T, T, int> Comparer)
         {
@@ -21,7 +22,16 @@ namespace ClassLibrary
 
         }
 
-       
+        public AVL(Func<T, T, int> Comparer, Action<T, T> EditInformation)
+        {
+            Root = null;
+            count = 0;
+            NodeList = new List<T>();
+            this.Comparer = Comparer;
+            this.EditInformation = EditInformation;
+        }
+
+
 
         public Node<T> Insert(Node<T> root, Node<T> newNode)
         {
@@ -160,6 +170,28 @@ namespace ClassLibrary
             }
             return false;
         }
+
+        public void EditData(Node<T> root, Node<T> nodeToEdit)
+        {
+            if (root != null)
+            {
+                if (Comparer(root.Record, nodeToEdit.Record) == 0) //Evaluate if they are the same
+                {
+                    EditInformation(root.Record, nodeToEdit.Record);
+                }
+                else if ((Comparer(root.Record, nodeToEdit.Record) == 1) && (Root.Left != null))   //Evaluate if it is smaller
+                {
+                    //If it is, go left
+                    EditData(root.Left, nodeToEdit);
+                }
+                else if ((Comparer(root.Record, nodeToEdit.Record) == -1) && (Root.Right != null))
+                {
+                    //If it isn't, go right
+                    EditData(root.Right, nodeToEdit);
+                }
+            }
+        }
+
 
 
         

@@ -40,11 +40,16 @@ namespace PROJECT_ED1.Helpers
             return DateTime.Compare(day.Date, newDay.Date);
         }; //Compares two ConsultationDay nodes by their date
 
-       
+
+        public static Action<Patient, Patient> EditData = (originalPatient, newPatient) =>
+        {
+            originalPatient.NextConsultation = newPatient.NextConsultation;
+            originalPatient.TreatmentDescription = newPatient.TreatmentDescription;
+        };
 
 
-        public AVL<Patient> DPITree = new AVL<Patient>(DPIcomparer);
-        public AVL<Patient> NameTree = new AVL<Patient>(NameComparer);
+        public AVL<Patient> DPITree = new AVL<Patient>(DPIcomparer, EditData);
+        public AVL<Patient> NameTree = new AVL<Patient>(NameComparer, EditData);
         public AVL<ConsultationDay> ConsultationDayTree = new AVL<ConsultationDay>(ConsultationDayComparer);
 
     }
