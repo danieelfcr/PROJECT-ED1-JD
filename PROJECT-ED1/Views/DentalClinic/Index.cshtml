@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Patients</h1>
 
 
 
@@ -21,7 +21,7 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<table class="table text-white bg-info"  >
     <thead>
         <tr>
             <th>
@@ -40,7 +40,7 @@
                 @Html.DisplayNameFor(model => model.LastConsultation)
             </th>
             <th>
-                @Html.ActionLink("NextConsultation", "NextConsultationFilter")
+                @Html.ActionLink("NextConsultation", "NextConsultationFilter", {Style = "color: white" })
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.TreatmentDescription)
@@ -71,7 +71,7 @@
                 </td>
                 <td>
                     @{
-                        if (item.NextConsultation != default(DateTime))
+                        if (item.NextConsultation != default)
                             @Html.DisplayFor(modelItem => item.NextConsultation);
                     }
 

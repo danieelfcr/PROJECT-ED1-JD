@@ -64,16 +64,20 @@
             <div class="form-group">
                 <label asp-for="NextConsultation" class="control-label"></label>
                 @{
-                    DateTime output;
+                    DateTime output = Convert.ToDateTime("1/01/0001 00:00:00");
+
                     if (Model != null && Model.NextConsultation == default)
                     {
-                        output = Convert.ToDateTime(Today);
+
+                        output = Model.NextConsultation;
                     }
                     else if (Model != null)
                     {
-                        output = Model.NextConsultation;
+                        output = Convert.ToDateTime(Today);
                     }
                 }
+
+               
                 <input asp-for="NextConsultation" min="@Today" type="date" class="form-control" />
                 <span asp-validation-for="NextConsultation" class="text-danger"></span>
             </div>

@@ -59,16 +59,15 @@
                 @Html.DisplayFor(modelItem => item.LastConsultation)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.NextConsultation)
+                @{
+                    if (item.NextConsultation != default)
+                        @Html.DisplayFor(modelItem => item.NextConsultation);
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TreatmentDescription)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
+            
         </tr>
 }
     </tbody>
