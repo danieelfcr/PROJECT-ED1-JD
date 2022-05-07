@@ -17,10 +17,10 @@ namespace PROJECT_ED1.Controllers
             return View(Data.Instance.DPITree.NodeList); 
         }
 
-      public IActionResult NextConsultationFilter()
+        public IActionResult NextConsultationFilter()
         {
            try
-            {
+           {
                 Data.Instance.DPITree.NodeList.Clear();
                 Data.Instance.FilteredList.Clear();
                 Data.Instance.FilteredList2.Clear();
@@ -38,12 +38,13 @@ namespace PROJECT_ED1.Controllers
                 }
 
                 return View(Data.Instance.FilteredList);
-            }
-            catch
-            {
-              return View();
-            }
-       }
+            
+           }
+           catch
+           {
+             return View();
+           }
+        }
 
         public IActionResult CleaningFilter()
         {
@@ -94,7 +95,7 @@ namespace PROJECT_ED1.Controllers
                 }
                 else
                 {
-                    int meses = LastConsultationDif(item);
+                    
                     if ((LastConsultationDif(item) >= MinMonths))
                     {
                         if (PatientNumber(item, MinMonths, Treatment) == CaseNumber)

@@ -36,16 +36,10 @@ namespace PROJECT_ED1.Helpers
 
         public static Func<ConsultationDay, ConsultationDay, int> ConsultationDayComparer = (day, newDay) =>
         {
-            //return day.Date.CompareTo(newDay.Date);
             return DateTime.Compare(day.Date, newDay.Date);
         }; //Compares two ConsultationDay nodes by their date
 
            
-      /*  public static Func<Patient, int> LastConsultationComparer = (patient) =>
-        {
-            return Math.Abs((patient.LastConsultation.Month) + 12 * (DateTime.Today.Month - patient.LastConsultation.Month));
-            
-        }; //Compares date with actual date and returns the number of months*/
 
         public static Action<Patient, Patient> EditData = (originalPatient, newPatient) =>
         {
