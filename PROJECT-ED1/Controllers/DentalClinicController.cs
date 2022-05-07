@@ -229,10 +229,12 @@ namespace PROJECT_ED1.Controllers
         {
             Patient auxPatient = new Patient
             {
-                DPI = id
+                DPI = id 
             };
 
-            Node<Patient> auxNode = new Node<Patient>(auxPatient);
+            //creation of a new node to search in the DPI tree, using DPI as id
+
+            Node<Patient> auxNode = new Node<Patient>(auxPatient); 
             var node = Data.Instance.DPITree.Search(Data.Instance.DPITree.Root, auxNode);
 
             return View(node.Record);
@@ -247,6 +249,7 @@ namespace PROJECT_ED1.Controllers
         {
             try
             {
+                //Record of the patient with editions
                 Patient EditedPatient = new Patient
                 {
                     FullName = collection["FullName"],
@@ -258,23 +261,32 @@ namespace PROJECT_ED1.Controllers
                     TreatmentDescription = collection["TreatmentDescription"]
                 };
 
+
+                //Creation of a new node that stores the edited patient to search in the AVL trees
                 Node<Patient> EditedPatientNode = new Node<Patient>(EditedPatient);
+
+                //The original node that stores the patient record before editing
                 var OriginalPatientNode = Data.Instance.DPITree.Search(Data.Instance.DPITree.Root, EditedPatientNode);
 
+                //Creation of a new ConsultationDay using the NextConsultation date of the edited patient
                 ConsultationDay auxDate = new ConsultationDay(EditedPatient.NextConsultation);
+
+                //The patient list inside the ConsultationDay is used to store the edited patient
                 auxDate.PatientList.Add(EditedPatient);
+                
+                //Creation of a new ConsultationDay node, used to search in the ConsultationDay tree
                 Node<ConsultationDay> nodeNewDate = new Node<ConsultationDay>(auxDate);
 
-
-                if (OriginalPatientNode.Record.NextConsultation == EditedPatientNode.Record.NextConsultation)
+                //if the original and edited nextConsultation date are the same, the system only edit the data of the record
+                if (OriginalPatientNode.Record.NextConsultation == EditedPatientNode.Record.NextConsultation) 
                 {
                     Data.Instance.DPITree.EditData(Data.Instance.DPITree.Root, EditedPatientNode);
                     Data.Instance.NameTree.EditData(Data.Instance.NameTree.Root, EditedPatientNode);
                 }
-                else if (OriginalPatientNode.Record.NextConsultation == default)
+                else if (OriginalPatientNode.Record.NextConsultation == default) //if the original NextConsultation date was not assigned, the nextConsultationDay tree does not contain the record
                 {
-                    //the patient doesn't has a next consultation date, so the information is edited without resheduling
-                    
+                    //the patient doesn't have a next consultation date, do the information is edited without rescheduling
+
                     if (Data.Instance.ConsultationDayTree.Contains(Data.Instance.ConsultationDayTree.Root, nodeNewDate))
                     {
                         if (Data.Instance.ConsultationDayTree.Search(Data.Instance.ConsultationDayTree.Root, nodeNewDate).Record.PatientList.Count != 8)
@@ -298,9 +310,12 @@ namespace PROJECT_ED1.Controllers
                 }
                 else
                 {
+                    //Creation of a new consultation day using the original NextConsultation date to search in the tree
+
                     ConsultationDay OriginalDate = new ConsultationDay(OriginalPatientNode.Record.NextConsultation);
                     Node<ConsultationDay> NodeOriginalDate = new Node<ConsultationDay>(OriginalDate);
 
+                    //if new date exists in the consultationDay tree, if there is space in the patient list, the edited record is stored, the original record is removed from the list of the original date
                     if (Data.Instance.ConsultationDayTree.Contains(Data.Instance.ConsultationDayTree.Root, nodeNewDate))
                     {
                         if (Data.Instance.ConsultationDayTree.Search(Data.Instance.ConsultationDayTree.Root, nodeNewDate).Record.PatientList.Count != 8)
@@ -319,6 +334,7 @@ namespace PROJECT_ED1.Controllers
                     }
                     else
                     {
+                        //if the new date is not inside the ConsultationDayTree, the insert method of the tree is called
                         Data.Instance.ConsultationDayTree.Root = Data.Instance.ConsultationDayTree.Insert(Data.Instance.ConsultationDayTree.Root, nodeNewDate);
                         if (Data.Instance.ConsultationDayTree.Search(Data.Instance.ConsultationDayTree.Root, NodeOriginalDate).Record.PatientList.Count == 1)
                             Data.Instance.ConsultationDayTree.Search(Data.Instance.ConsultationDayTree.Root, NodeOriginalDate).Record.PatientList.Clear();
