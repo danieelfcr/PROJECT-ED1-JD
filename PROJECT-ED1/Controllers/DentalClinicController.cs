@@ -60,7 +60,7 @@ namespace PROJECT_ED1.Controllers
 
         public IActionResult OrthodonticFilter()
         {
-            InsertNodeToFList(2, "Ortodoncia", 3);
+            InsertNodeToFList(2, "Orthodontics", 3);
             return View(Data.Instance.FilteredList2);
         }
 
@@ -81,7 +81,7 @@ namespace PROJECT_ED1.Controllers
             {
                 if (item.TreatmentDescription != "")
                 {
-                    if ((LastConsultationDif(item) >= MinMonths) && (!item.TreatmentDescription.ToUpper().Contains("CARIES") && !item.TreatmentDescription.ToUpper().Contains("ORTODONCIA") && !item.TreatmentDescription.ToUpper().Contains("CARIES") && PatientNumber(item, MinMonths, Treatment) == CaseNumber))
+                    if ((LastConsultationDif(item) >= MinMonths) && (!item.TreatmentDescription.ToUpper().Contains("CARIES") && !item.TreatmentDescription.ToUpper().Contains("ORTHODONTICS") && PatientNumber(item, MinMonths, Treatment) == CaseNumber))
                     {
                         Data.Instance.FilteredList2.Add(item);
                     }
@@ -109,11 +109,11 @@ namespace PROJECT_ED1.Controllers
 
         public int PatientNumber(Patient patient, int MinMonths, string Treatment)
         {
-            if ((LastConsultationDif(patient) >= MinMonths) && !patient.TreatmentDescription.ToUpper().Contains("CARIES") && !patient.TreatmentDescription.ToUpper().Contains("ORTODONCIA") && patient.TreatmentDescription != "")
+            if ((LastConsultationDif(patient) >= MinMonths) && !patient.TreatmentDescription.ToUpper().Contains("CARIES") && !patient.TreatmentDescription.ToUpper().Contains("ORTHODONTICS") && patient.TreatmentDescription != "")
                 return 4;
             else if ((LastConsultationDif(patient) >= MinMonths) && (patient.TreatmentDescription.ToUpper().Contains(Treatment.ToUpper())))
             {
-                if (patient.TreatmentDescription.ToUpper().Contains("ORTODONCIA"))
+                if (patient.TreatmentDescription.ToUpper().Contains("ORTHODONTICS"))
                 {
                     return 3;
                 }
