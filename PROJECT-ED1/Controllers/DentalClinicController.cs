@@ -48,6 +48,7 @@ namespace PROJECT_ED1.Controllers
 
         public IActionResult CleaningFilter()
         {
+            //Call function sending the minimum quantity of months to evaluate, the treatment and the case number
             InsertNodeToFList(6, "", 1);
             return View(Data.Instance.FilteredList2);
         }
@@ -77,17 +78,20 @@ namespace PROJECT_ED1.Controllers
 
         public void InsertNodeToFList(int MinMonths, String Treatment, int CaseNumber)
         {
+            //Evaluate each item in list
             foreach (var item in Data.Instance.FilteredList)
             {
+                //Evalute if the patient needs a dental cleaning by its first condition (no treatment)
                 if (item.TreatmentDescription != "")
                 {
                     if ((LastConsultationDif(item) >= MinMonths) && (!item.TreatmentDescription.ToUpper().Contains("CARIES") && !item.TreatmentDescription.ToUpper().Contains("ORTHODONTICS") && PatientNumber(item, MinMonths, Treatment) == CaseNumber))
                     {
                         Data.Instance.FilteredList2.Add(item);
                     }
+                    //Evaluate for the second and third case
                     else if ((LastConsultationDif(item) >= MinMonths) && (item.TreatmentDescription.ToUpper().Contains(Treatment.ToUpper())))
                     {
-                        if (PatientNumber(item, MinMonths, Treatment) == CaseNumber)
+                        if (PatientNumber(item, MinMonths, Treatment) == CaseNumber) //If the patient has the case we are looking for, add to list
                         {
                             Data.Instance.FilteredList2.Add(item);
                         }     
@@ -95,7 +99,7 @@ namespace PROJECT_ED1.Controllers
                 }
                 else
                 {
-                    
+                    //If the patient has no treatment, evaluate if it has the minimum quantity of months
                     if ((LastConsultationDif(item) >= MinMonths))
                     {
                         if (PatientNumber(item, MinMonths, Treatment) == CaseNumber)
@@ -124,7 +128,7 @@ namespace PROJECT_ED1.Controllers
             }
             return 1;
 
-        }
+        } //Returns the case number of a patient
 
         // GET: DentalClinicController/Details/5
         public ActionResult Details(int id)
